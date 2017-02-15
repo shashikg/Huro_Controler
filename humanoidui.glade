@@ -20,6 +20,10 @@
     <property name="pixel_size">50</property>
     <property name="icon_name">go-first</property>
   </object>
+  <object class="GtkTextBuffer" id="lf_ang_data_buffer"/>
+  <object class="GtkTextBuffer" id="lf_dir_data_buffer"/>
+  <object class="GtkTextBuffer" id="od_ang_data_buffer"/>
+  <object class="GtkTextBuffer" id="od_dir_data_buffer"/>
   <object class="GtkImage" id="righ">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -46,22 +50,105 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <child>
-          <object class="GtkSwitch" id="line_follow_switch">
-            <property name="width_request">450</property>
-            <property name="height_request">150</property>
+          <object class="GtkLayout" id="line_follow_layout">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="margin_left">50</property>
-            <property name="margin_right">50</property>
-            <property name="margin_top">50</property>
-            <property name="margin_bottom">50</property>
-            <signal name="state-set" handler="line_follow_switch_state_set_cb" swapped="no"/>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkSwitch" id="line_follow_switch">
+                <property name="width_request">500</property>
+                <property name="height_request">200</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <signal name="state-set" handler="line_follow_switch_state_set_cb" swapped="no"/>
+              </object>
+              <packing>
+                <property name="x">130</property>
+                <property name="y">235</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="command_dir">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Dir Data:</property>
+                <attributes>
+                  <attribute name="font-desc" value="Courier 10 Pitch Bold 17"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">141</property>
+                <property name="y">23</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolledwindow1">
+                <property name="width_request">356</property>
+                <property name="height_request">42</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="shadow_type">in</property>
+                <child>
+                  <object class="GtkTextView" id="lf_dir_data">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="editable">False</property>
+                    <property name="top_margin">10</property>
+                    <property name="indent">10</property>
+                    <property name="cursor_visible">False</property>
+                    <property name="buffer">lf_dir_data_buffer</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="x">268</property>
+                <property name="y">42</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolledwindow2">
+                <property name="width_request">356</property>
+                <property name="height_request">42</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="shadow_type">in</property>
+                <child>
+                  <object class="GtkTextView" id="lf_ang_data">
+                    <property name="width_request">100</property>
+                    <property name="height_request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="editable">False</property>
+                    <property name="top_margin">10</property>
+                    <property name="indent">10</property>
+                    <property name="cursor_visible">False</property>
+                    <property name="buffer">lf_ang_data_buffer</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="x">268</property>
+                <property name="y">114</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="command_ang">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Ang Data:</property>
+                <attributes>
+                  <attribute name="font-desc" value="Courier 10 Pitch Bold 17"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">141</property>
+                <property name="y">95</property>
+              </packing>
+            </child>
           </object>
-          <packing>
-            <property name="tab_fill">False</property>
-          </packing>
         </child>
         <child type="tab">
           <object class="GtkLabel" id="line_follow_tab">
@@ -75,52 +162,108 @@
           </packing>
         </child>
         <child>
-          <object class="GtkSwitch" id="face_rec_switch">
-            <property name="width_request">450</property>
-            <property name="height_request">150</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="margin_left">50</property>
-            <property name="margin_right">50</property>
-            <property name="margin_top">50</property>
-            <property name="margin_bottom">50</property>
-            <signal name="state-set" handler="face_rec_switch_state_set_cb" swapped="no"/>
-          </object>
-          <packing>
-            <property name="position">1</property>
-            <property name="tab_fill">False</property>
-          </packing>
-        </child>
-        <child type="tab">
-          <object class="GtkLabel" id="face_rec_tab">
+          <object class="GtkLayout" id="obj_detect_layout">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Face Recognition</property>
+            <property name="width">101</property>
+            <child>
+              <object class="GtkSwitch" id="obj_detect_switch">
+                <property name="width_request">500</property>
+                <property name="height_request">200</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <signal name="state-set" handler="obj_detect_switch_state_set_cb" swapped="no"/>
+              </object>
+              <packing>
+                <property name="x">130</property>
+                <property name="y">235</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label2">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Dir Data:</property>
+                <attributes>
+                  <attribute name="font-desc" value="Courier 10 Pitch Bold 17"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">141</property>
+                <property name="y">23</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label3">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Ang Data:</property>
+                <attributes>
+                  <attribute name="font-desc" value="Courier 10 Pitch Bold 17"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">141</property>
+                <property name="y">95</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolledwindow3">
+                <property name="width_request">356</property>
+                <property name="height_request">42</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="shadow_type">in</property>
+                <child>
+                  <object class="GtkTextView" id="od_dir_data">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="editable">False</property>
+                    <property name="top_margin">10</property>
+                    <property name="indent">10</property>
+                    <property name="cursor_visible">False</property>
+                    <property name="buffer">od_dir_data_buffer</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="x">268</property>
+                <property name="y">42</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolledwindow4">
+                <property name="width_request">356</property>
+                <property name="height_request">42</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="shadow_type">in</property>
+                <child>
+                  <object class="GtkTextView" id="od_ang_data">
+                    <property name="width_request">100</property>
+                    <property name="height_request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="editable">False</property>
+                    <property name="top_margin">10</property>
+                    <property name="indent">10</property>
+                    <property name="cursor_visible">False</property>
+                    <property name="buffer">od_ang_data_buffer</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="x">268</property>
+                <property name="y">114</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="position">1</property>
-            <property name="tab_fill">False</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSwitch" id="obj_detect_switch">
-            <property name="width_request">450</property>
-            <property name="height_request">150</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="margin_left">50</property>
-            <property name="margin_right">48</property>
-            <property name="margin_top">50</property>
-            <property name="margin_bottom">50</property>
-            <signal name="state-set" handler="obj_detect_switch_state_set_cb" swapped="no"/>
-          </object>
-          <packing>
-            <property name="position">2</property>
-            <property name="tab_fill">False</property>
           </packing>
         </child>
         <child type="tab">
@@ -128,6 +271,39 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Object Detection</property>
+          </object>
+          <packing>
+            <property name="position">1</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLayout" id="face_rec_layout">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkSwitch" id="face_rec_switch">
+                <property name="width_request">500</property>
+                <property name="height_request">200</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <signal name="state-set" handler="face_rec_switch_state_set_cb" swapped="no"/>
+              </object>
+              <packing>
+                <property name="x">130</property>
+                <property name="y">144</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="face_rec_tab">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Face Recognition</property>
           </object>
           <packing>
             <property name="position">2</property>
@@ -267,6 +443,26 @@
           </packing>
         </child>
         <child>
+          <object class="GtkLayout" id="sensors_data_layout">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="sensors_data_tab">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Sensors Data</property>
+          </object>
+          <packing>
+            <property name="position">4</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -283,7 +479,7 @@ Made by Team Huro...
             </attributes>
           </object>
           <packing>
-            <property name="position">4</property>
+            <property name="position">5</property>
           </packing>
         </child>
         <child type="tab">
@@ -293,7 +489,7 @@ Made by Team Huro...
             <property name="label" translatable="yes">About</property>
           </object>
           <packing>
-            <property name="position">4</property>
+            <property name="position">5</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
